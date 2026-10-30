@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Framework Estratégico de Decisão para Automação Inteligente</title>
-  <!-- Tailwind CSS -->
+  <title>Simulador de Decisão Estratégica • Automação & IA</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Google Fonts: Inter & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           fontFamily: {
@@ -20,17 +21,17 @@
             display: ['"Plus Jakarta Sans"', 'sans-serif'],
           },
           colors: {
-            brand: {
-              900: '#0B1329',
-              850: '#0F1A36',
-              800: '#14224A',
-              700: '#1E3269',
-              600: '#2A468E',
-              500: '#3A63BE',
-              gold: '#D4AF37',
-              goldLight: '#F3E5AB',
-              goldDark: '#AA820A',
-              accent: '#38BDF8'
+            corp: {
+              950: '#060B17',
+              900: '#0B132B',
+              850: '#111C3D',
+              800: '#1C2951',
+              700: '#2A3C72',
+              gold: '#E5B869',
+              goldLight: '#F5DEB3',
+              cyan: '#38BDF8',
+              emerald: '#10B981',
+              rose: '#F43F5E'
             }
           }
         }
@@ -39,600 +40,744 @@
   </script>
   <style>
     @media print {
-      body { background-color: #ffffff !important; color: #111827 !important; }
+      body { background: #ffffff !important; color: #0f172a !important; }
       .no-print { display: none !important; }
-      .print-shadow { box-shadow: none !important; border: 1px solid #e5e7eb !important; }
+      .print-box { border: 1px solid #cbd5e1 !important; box-shadow: none !important; background: #ffffff !important; color: #0f172a !important; }
+      .print-text-dark { color: #0f172a !important; }
+      .print-subtext { color: #475569 !important; }
     }
-    .custom-scroll::-webkit-scrollbar { width: 6px; }
-    .custom-scroll::-webkit-scrollbar-track { background: rgba(15, 26, 54, 0.4); }
-    .custom-scroll::-webkit-scrollbar-thumb { background: #3A63BE; border-radius: 4px; }
+    @keyframes pulseGlow {
+      0%, 100% { stroke-dashoffset: 0; opacity: 0.8; }
+      50% { stroke-dashoffset: -16; opacity: 1; }
+    }
+    .flow-line-active {
+      stroke-dasharray: 6 6;
+      animation: pulseGlow 3s linear infinite;
+    }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-brand-500 selection:text-white">
+<body class="bg-corp-950 text-slate-100 font-sans min-h-screen flex flex-col antialiased selection:bg-corp-cyan/30 selection:text-white">
 
   <!-- Executive Header -->
-  <header class="border-b border-slate-800/80 bg-brand-900/90 backdrop-blur-md sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+  <header class="border-b border-slate-800/80 bg-corp-900/90 backdrop-blur-md sticky top-0 z-50 no-print">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 via-brand-700 to-brand-900 flex items-center justify-center border border-brand-gold/40 shadow-lg shadow-brand-900/40">
-          <svg class="w-5 h-5 text-brand-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-corp-850 to-corp-800 border border-slate-700/80 flex items-center justify-center text-corp-gold shadow-inner">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6"/>
           </svg>
         </div>
         <div>
-          <span class="text-xs font-semibold tracking-widest uppercase text-brand-gold font-display">Executive Advisory Framework</span>
-          <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white font-display">Decisão Estratégica para Automação Inteligente</h1>
+          <span class="text-[10px] uppercase font-bold tracking-widest text-corp-gold/90 font-display block leading-none">Decision Engine • C-Level Advisory</span>
+          <h1 class="text-sm sm:text-base font-bold text-white tracking-tight">Automação Inteligente & IA Agêntica</h1>
         </div>
       </div>
-      <div class="hidden sm:flex items-center space-x-2 text-xs text-slate-400 bg-slate-900/80 px-3 py-1.5 rounded-full border border-slate-700/60">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span>Diretrizes C-Level</span>
+      
+      <div class="flex items-center space-x-3">
+        <button onclick="resetFlow()" class="text-xs px-3 py-1.5 rounded-lg border border-slate-800 bg-slate-900/80 text-slate-400 hover:text-slate-200 hover:border-slate-700 transition flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/></svg>
+          <span class="hidden sm:inline">Reiniciar</span>
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- Main Container -->
-  <main class="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 py-8 sm:py-12 flex flex-col justify-center">
-
-    <!-- Progress Tracker (Visible during quiz) -->
-    <div id="progressSection" class="mb-8">
-      <div class="flex items-center justify-between text-xs font-medium text-slate-400 mb-2">
-        <span id="stepCounter" class="uppercase tracking-wider text-brand-accent">Diagnóstico Etapa 1 de 4</span>
-        <span id="stepPercentage" class="text-slate-300 font-semibold">25% Concluído</span>
+  <!-- Interactive Decision Graph / Timeline Blueprint (Visual Tree) -->
+  <section class="border-b border-slate-800/60 bg-corp-900/40 no-print">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4">
+      <div class="flex items-center justify-between text-xs mb-3 text-slate-400">
+        <span class="font-display font-semibold tracking-wider uppercase text-slate-400 flex items-center gap-2">
+          <span class="w-1.5 h-1.5 rounded-full bg-corp-gold animate-ping"></span>
+          Árvore Dinâmica de Decisão (Clique em uma etapa para alterar)
+        </span>
+        <span id="completionRate" class="font-mono text-slate-300">25%</span>
       </div>
-      <div class="w-full bg-slate-900 h-2 rounded-full overflow-hidden border border-slate-800">
-        <div id="progressBar" class="h-full bg-gradient-to-r from-brand-600 via-brand-500 to-brand-gold transition-all duration-500 rounded-full w-1/4"></div>
-      </div>
-    </div>
 
-    <!-- Diagnostic Workflow Card -->
-    <div id="diagnosticCard" class="bg-brand-900/60 border border-slate-800 rounded-2xl p-6 sm:p-10 backdrop-blur-xl shadow-2xl relative overflow-hidden transition-all duration-300">
-      <div class="absolute -top-32 -right-32 w-72 h-72 bg-brand-600/10 rounded-full blur-3xl pointer-events-none"></div>
-
-      <!-- Question View Component -->
-      <div id="questionContainer">
+      <!-- Node Timeline Flow -->
+      <div id="treeContainer" class="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4">
         <!-- Rendered by JS -->
       </div>
     </div>
+  </section>
 
-    <!-- Executive Results Dashboard (Hidden initially) -->
-    <div id="resultContainer" class="hidden space-y-8 animate-fade-in">
-      <!-- Generated Dynamically -->
-    </div>
+  <!-- Main Canvas -->
+  <main class="flex-1 max-w-4xl mx-auto w-full px-4 sm:px-6 py-8 sm:py-10 flex flex-col justify-center">
+
+    <!-- Active Question Card -->
+    <section id="questionCard" class="bg-corp-900/60 border border-slate-800/90 rounded-2xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl relative overflow-hidden transition-all duration-300">
+      <div class="absolute -top-32 -right-32 w-64 h-64 bg-corp-cyan/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div id="questionInner"></div>
+    </section>
+
+    <!-- Comprehensive Executive Diagnostics Dashboard (Rendered upon conclusion) -->
+    <section id="resultCard" class="hidden space-y-6"></section>
 
   </main>
 
-  <!-- Executive Footer -->
-  <footer class="border-t border-slate-900 bg-brand-900/40 py-6 text-center text-xs text-slate-500">
-    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p>Metodologia baseada em evidências gerenciais (BCG, Gartner, McKinsey) &bull; Modelo de Governança C-Level</p>
-      <div class="flex items-center space-x-4">
-        <span>Framework de 3 Passos</span>
-        <span>&bull;</span>
-        <span>Parcimônia Algorítmica</span>
-      </div>
+  <!-- Minimal Footer -->
+  <footer class="border-t border-slate-900 bg-corp-950 py-5 text-center text-xs text-slate-500 no-print">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>Estrutura fundamentada no Princípio da Parcimônia Algorítmica e benchmarks BCG / Gartner (2025-2026).</p>
+      <span>Governança & Soberania Digital</span>
     </div>
   </footer>
 
   <script>
-    // State Model
-    const state = {
-      currentStep: 1,
+    // State Machine
+    const appState = {
+      step: 1, // 1, 2, 3, 4, or 'result'
       answers: {
-        q1: null,
-        q2: null,
-        q3: null,
-        q4: null
+        1: null,
+        2: null,
+        3: null,
+        4: null
       },
-      earlyExit: null // 'q1_exit' or 'q2_exit'
+      verdictType: null // 'q1_exit', 'q2_exit', or 'completed'
     };
 
-    // Diagnostics Structure Data
-    const questionsData = {
+    // Diagnostic Nodes Data
+    const workflowNodes = [
+      { id: 1, label: "Maturidade", sub: "Padronização" },
+      { id: 2, label: "Fronteira", sub: "Sistemas & Regras" },
+      { id: 3, label: "Operação", sub: "Fazer vs Pensar" },
+      { id: 4, label: "Governança", sub: "Soberania & Custo" }
+    ];
+
+    const questions = {
       1: {
-        code: "Q1",
-        stageName: "Passo 1.1 • Maturidade de Processos",
-        title: "Maturidade e Padronização do Fluxo",
-        question: "O processo que você deseja aprimorar já possui etapas claras, padronizadas e mapeadas?",
-        subtext: "A automação de um fluxo caótico ou inconsistente amplifica custos operacionais e replica desvios com maior velocidade.",
+        stepNumber: 1,
+        stepTag: "Filtro 1 • Maturidade do Processo",
+        title: "O processo que você deseja aprimorar já possui etapas claras, padronizadas e mapeadas?",
+        contextReason: "Automatizar um processo caótico apenas amplifica erros com maior velocidade, desperdiçando capital em licenças sem capturar valor.",
         options: [
           {
-            label: "Não",
-            description: "O processo ainda possui variações informais, indefinições de papéis ou não possui documentação/estabilidade operacional.",
-            action: () => handleAnswer(1, "NAO")
+            key: "NAO",
+            badge: "Não Mapeado",
+            badgeType: "warn",
+            title: "Não, o processo possui variações informais",
+            desc: "Ainda há retrabalho, indefinições de alçadas ou regras informais na rotina dos colaboradores.",
+            leadsTo: "exit_1"
           },
           {
-            label: "Sim",
-            description: "As etapas são estruturadas, as exceções são delimitadas e as regras do processo encontram-se formalizadas e estáveis.",
-            action: () => handleAnswer(1, "SIM")
+            key: "SIM",
+            badge: "Padronizado",
+            badgeType: "success",
+            title: "Sim, o processo é claro e estruturado",
+            desc: "As etapas são documentadas, os desvios conhecidos e a execução opera de maneira previsível.",
+            leadsTo: 2
           }
         ]
       },
       2: {
-        code: "Q2",
-        stageName: "Passo 1.2 • Fronteira Sistêmica",
-        title: "Escopo e Integração de Sistemas",
-        question: "A tarefa ocorre dentro de um único software e exige apenas validações matemáticas ou cálculos fixos?",
-        subtext: "Determina se há necessidade de integração entre plataformas ou se a capacidade determinística nativa atende ao desafio.",
+        stepNumber: 2,
+        stepTag: "Filtro 2 • Fronteira Sistêmica",
+        title: "A tarefa ocorre dentro de um único software e exige apenas validações matemáticas ou cálculos fixos?",
+        contextReason: "Evita o over-engineering. Soluções nativas eliminam a necessidade de contratar RPA ou inteligência artificial externa.",
         options: [
           {
-            label: "Sim",
-            description: "A rotina opera inteiramente em um único ERP, CRM ou banco de dados com lógicas puramente numéricas ou de validação de alçada.",
-            action: () => handleAnswer(2, "SIM")
+            key: "SIM",
+            badge: "Monolítico",
+            badgeType: "warn",
+            title: "Sim, ocorre em um único sistema sob regras numéricas",
+            desc: "A rotina opera em um único ERP, CRM ou sistema legado com validações puramente matemáticas ou lógicas fixas de alçada.",
+            leadsTo: "exit_2"
           },
           {
-            label: "Não",
-            description: "Envolve múltiplos softwares legados, trânsito de dados entre canais distintos ou manipulação de informações heterogêneas.",
-            action: () => handleAnswer(2, "NAO")
+            key: "NAO",
+            badge: "Multiplataforma",
+            badgeType: "success",
+            title: "Não, cruza sistemas ou dados heterogêneos",
+            desc: "Exige trânsito de dados entre múltiplas aplicações, documentos externos ou tarefas cognitivas.",
+            leadsTo: 3
           }
         ]
       },
       3: {
-        code: "Q3",
-        stageName: "Passo 2 • Natureza Operacional (A Escada Tecnológica)",
-        title: "Natureza do Esforço Humano no Gargalo",
-        question: "Qual é a principal atividade executada pelo seu time nesse gargalo?",
-        subtext: "Diferencia tarefas mecânicas que requerem 'mãos digitais' daquelas que demandam 'cérebro analítico' ou orquestração mista.",
+        stepNumber: 3,
+        stepTag: "Passo 2 • A Escada Tecnológica",
+        title: "Qual é a principal atividade executada pelo seu time nesse gargalo?",
+        contextReason: "Define a alocação entre 'mãos digitais' (músculo de execução mecânica) e 'cérebro digital' (interpretação semântica sob incerteza).",
         options: [
           {
             key: "A",
-            label: "Opção A: Mãos Digitais (Fazer)",
-            highlight: "Automação Transacional / RPA (Degrau 1)",
-            description: "Copiar, validar, preencher e transferir dados tabulares entre sistemas legados distintos sob regras fixas predefinidas.",
-            action: () => handleAnswer(3, "A")
+            badge: "Mãos Digitais (Fazer)",
+            badgeType: "neutral",
+            title: "Opção A: Copiar, validar e transferir dados tabulares entre sistemas sob regras fixas",
+            desc: "Direcionamento: Automação Transacional (RPA - Degrau 1). Execução determinística de rotinas repetitivas.",
+            leadsTo: 4
           },
           {
             key: "B",
-            label: "Opção B: Cérebro Digital (Pensar)",
-            highlight: "Inteligência Artificial Cognitiva (Degraus 2 a 6)",
-            description: "Interpretar textos livres, analisar documentos densos, resumir informações complexas ou deliberar sob incerteza técnica.",
-            action: () => handleAnswer(3, "B")
+            badge: "Cérebro Digital (Pensar)",
+            badgeType: "neutral",
+            title: "Opção B: Interpretar textos livres, analisar documentos densos ou deliberar conhecimento",
+            desc: "Direcionamento: Inteligência Artificial Cognitiva (Degraus 2 a 6). Análise semântica, sumarização e pareceres contextuais.",
+            leadsTo: 4
           },
           {
             key: "C",
-            label: "Opção C: Processo Misto (Fazer + Pensar)",
-            highlight: "Automação Integrada / Multiagente (Degrau 7)",
-            description: "Receber documentos não estruturados, interpretar o mérito das solicitações e executar lançamentos sistêmicos posteriores.",
-            action: () => handleAnswer(3, "C")
+            badge: "Misto (Fazer + Pensar)",
+            badgeType: "neutral",
+            title: "Opção C: Receber documentos não estruturados, julgar o mérito e registrar no sistema",
+            desc: "Direcionamento: Automação Integrada / Multiagente (Degrau 7). Orquestração completa de ponta a ponta.",
+            leadsTo: 4
           }
         ]
       },
       4: {
-        code: "Q4",
-        stageName: "Passo 3 • Restrições de Governança e Orçamento",
-        title: "Criticidade Estratégica e Sensibilidade de Dados",
-        question: "Quais são a criticidade estratégica e a sensibilidade dos dados desse fluxo?",
-        subtext: "O alinhamento do arquétipo de implementação (Build, Low-Code ou Buy) define a soberania sobre o ativo e a estrutura de CAPEX/OPEX.",
+        stepNumber: 4,
+        stepTag: "Passo 3 • Arquétipos Organizacionais & Finanças",
+        title: "Quais são a criticidade estratégica e a sensibilidade dos dados desse fluxo?",
+        contextReason: "O arquétipo de implementação equilibra retenção de propriedade intelectual, velocidade e a distribuição entre CAPEX e OPEX.",
         options: [
           {
             key: "A",
-            label: "Opção A: Missão Crítica / Alto Sigilo",
-            highlight: "Arquétipo: A Fortaleza (Soberania Própria)",
-            description: "Missão crítica corporativa (Core Business), diferencial competitivo proprietário ou sigilo bancário/regulatório estrito.",
-            action: () => handleAnswer(4, "A")
+            badge: "A Fortaleza",
+            badgeType: "gold",
+            title: "Opção A: Missão crítica corporativa (Core Business) ou sigilo bancário/regulatório estrito",
+            desc: "Recomendação de Arquétipo: A FORTALEZA (Desenvolvimento Próprio com Tiny Teams e Soberania Total).",
+            leadsTo: "result"
           },
           {
             key: "B",
-            label: "Opção B: Processo Departamental Estruturado",
-            highlight: "Arquétipo: O Híbrido Ágil (Democratização)",
-            description: "Processo departamental relevante (RH, Operações, Suporte), com demanda por velocidade e participação ativa dos analistas de negócio.",
-            action: () => handleAnswer(4, "B")
+            badge: "O Híbrido Ágil",
+            badgeType: "gold",
+            title: "Opção B: Processo departamental relevante com demanda por velocidade e autonomia das áreas",
+            desc: "Recomendação de Arquétipo: O HÍBRIDO ÁGIL (Plataformas Low-Code integradas a APIs de IA com Governança de TI).",
+            leadsTo: "result"
           },
           {
             key: "C",
-            label: "Opção C: Rotina de Apoio ou Prova de Conceito",
-            highlight: "Arquétipo: O Velocista (Aceleração Externa)",
-            description: "Rotina de apoio padronizada de mercado ou necessidade de validação ultrarrápida de projeto-piloto sem mobilização técnica interna.",
-            action: () => handleAnswer(4, "C")
+            badge: "O Velocista",
+            badgeType: "gold",
+            title: "Opção C: Rotina de apoio padronizada de mercado ou validação ultrarrápida de piloto",
+            desc: "Recomendação de Arquétipo: O VELOCISTA (SaaS / AIaaS Terceirizado e Conversão 100% em OPEX).",
+            leadsTo: "result"
           }
         ]
       }
     };
 
-    // Render Question View
-    function renderQuestion(step) {
-      const q = questionsData[step];
-      const container = document.getElementById("questionContainer");
-      const progressSection = document.getElementById("progressSection");
-      const diagnosticCard = document.getElementById("diagnosticCard");
-      const resultContainer = document.getElementById("resultContainer");
+    // Render Timeline / Dynamic Tree View
+    function renderDecisionTree() {
+      const container = document.getElementById('treeContainer');
+      const rateLabel = document.getElementById('completionRate');
 
-      progressSection.classList.remove("hidden");
-      diagnosticCard.classList.remove("hidden");
-      resultContainer.classList.add("hidden");
+      let completedSteps = 0;
+      if (appState.verdictType) {
+        completedSteps = 4;
+      } else {
+        completedSteps = appState.step - 1;
+      }
+      rateLabel.textContent = `${Math.min(100, Math.round((completedSteps / 4) * 100))}%`;
 
-      // Update progress bar
-      const percentage = ((step) / 4) * 100;
-      document.getElementById("progressBar").style.width = `${percentage}%`;
-      document.getElementById("stepCounter").textContent = `Etapa ${step} de 4 • ${q.stageName}`;
-      document.getElementById("stepPercentage").textContent = `${Math.round(percentage)}%`;
+      container.innerHTML = workflowNodes.map(node => {
+        const isCurrent = appState.step === node.id && !appState.verdictType;
+        const answer = appState.answers[node.id];
+        const isAnswered = answer !== null;
+        const isDisabled = !isAnswered && !isCurrent;
 
-      let optionsHtml = '';
-      if (step === 1 || step === 2) {
-        // Binary choice with executive pill format
-        optionsHtml = `
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
-            ${q.options.map((opt, idx) => `
-              <button onclick="questionsData[${step}].options[${idx}].action()" 
-                      class="group relative text-left p-6 rounded-xl border border-slate-700/80 bg-slate-900/80 hover:bg-slate-800/90 hover:border-brand-500/80 transition-all duration-200 flex flex-col justify-between shadow-lg hover:shadow-brand-900/30">
-                <div>
-                  <div class="flex items-center justify-between mb-3">
-                    <span class="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-bold font-display uppercase tracking-wider ${opt.label === 'Sim' ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' : 'bg-amber-950 text-amber-300 border border-amber-800'}">
-                      ${opt.label}
-                    </span>
-                    <svg class="w-5 h-5 text-slate-500 group-hover:text-brand-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
-                  </div>
-                  <p class="text-sm text-slate-300 leading-relaxed">${opt.description}</p>
-                </div>
-              </button>
-            `).join('')}
+        let statusClass = "border-slate-800 bg-slate-900/40 text-slate-500 opacity-60";
+        let dotClass = "bg-slate-700";
+
+        if (isCurrent) {
+          statusClass = "border-corp-cyan/80 bg-corp-850/80 text-white shadow-lg ring-1 ring-corp-cyan/30";
+          dotClass = "bg-corp-cyan animate-pulse";
+        } else if (isAnswered) {
+          statusClass = "border-slate-700/80 bg-slate-900/90 text-slate-200 hover:border-corp-gold/70 cursor-pointer";
+          dotClass = "bg-corp-gold";
+        }
+
+        let answerSummary = "Pendente";
+        if (node.id === 1 && answer) answerSummary = answer === 'SIM' ? 'Processo Maduro' : 'Imaturo (Redesenho)';
+        if (node.id === 2 && answer) answerSummary = answer === 'SIM' ? 'Único Software' : 'Multi-sistemas';
+        if (node.id === 3 && answer) {
+          if (answer === 'A') answerSummary = 'Mãos (RPA)';
+          if (answer === 'B') answerSummary = 'Cérebro (IA)';
+          if (answer === 'C') answerSummary = 'Misto (Multiagente)';
+        }
+        if (node.id === 4 && answer) {
+          if (answer === 'A') answerSummary = 'A Fortaleza';
+          if (answer === 'B') answerSummary = 'O Híbrido Ágil';
+          if (answer === 'C') answerSummary = 'O Velocista';
+        }
+
+        return `
+          <div onclick="${isAnswered ? `jumpToStep(${node.id})` : ''}"
+               class="p-3 rounded-xl border transition-all duration-200 text-left ${statusClass} flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-[10px] font-mono tracking-wider uppercase text-slate-400">Nó 0${node.id}</span>
+              <span class="w-2 h-2 rounded-full ${dotClass}"></span>
+            </div>
+            <div>
+              <div class="text-xs font-semibold text-slate-200 font-display">${node.label}</div>
+              <div class="text-[11px] truncate text-corp-gold/90 font-medium">${isAnswered ? answerSummary : node.sub}</div>
+            </div>
           </div>
         `;
-      } else {
-        // Multi-option executive cards
-        optionsHtml = `
-          <div class="space-y-4 mt-6">
-            ${q.options.map((opt, idx) => `
-              <button onclick="questionsData[${step}].options[${idx}].action()" 
-                      class="w-full text-left p-5 rounded-xl border border-slate-800 bg-slate-900/70 hover:bg-slate-800/80 hover:border-brand-gold/60 transition-all duration-200 group flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md hover:shadow-xl">
-                <div class="space-y-1.5 flex-1">
-                  <div class="flex flex-wrap items-center gap-2">
-                    <span class="text-xs font-bold uppercase tracking-wider text-brand-gold px-2.5 py-0.5 rounded bg-brand-gold/10 border border-brand-gold/20 font-display">
-                      ${opt.label}
-                    </span>
-                    <span class="text-xs text-brand-accent font-medium">${opt.highlight}</span>
-                  </div>
-                  <p class="text-sm text-slate-300 leading-relaxed">${opt.description}</p>
-                </div>
-                <div class="flex items-center text-slate-500 group-hover:text-brand-gold self-end sm:self-center transition-colors">
-                  <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+      }).join('');
+    }
+
+    // Render Question Canvas
+    function renderQuestion(stepNumber) {
+      appState.step = stepNumber;
+      appState.verdictType = null;
+
+      const q = questions[stepNumber];
+      const card = document.getElementById('questionCard');
+      const resultCard = document.getElementById('resultCard');
+      const inner = document.getElementById('questionInner');
+
+      card.classList.remove('hidden');
+      resultCard.classList.add('hidden');
+
+      renderDecisionTree();
+
+      inner.innerHTML = `
+        <!-- Question Stage Header -->
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-corp-850 text-corp-cyan border border-corp-cyan/30 font-display">
+            <span class="w-1.5 h-1.5 rounded-full bg-corp-cyan"></span>
+            ${q.stepTag}
+          </span>
+          
+          <div class="flex items-center space-x-2">
+            ${stepNumber > 1 ? `
+              <button onclick="previousStep()" class="text-xs px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900 text-slate-300 hover:bg-slate-800 transition flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"/></svg>
+                Voltar
+              </button>
+            ` : ''}
+          </div>
+        </div>
+
+        <!-- Question Body -->
+        <h2 class="text-lg sm:text-2xl font-extrabold text-white font-display tracking-tight leading-snug mb-3">
+          ${q.title}
+        </h2>
+
+        <!-- Context Accordion Box -->
+        <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/90 mb-6 text-xs text-slate-300 flex items-start gap-2.5">
+          <div class="p-1 rounded bg-corp-gold/10 text-corp-gold mt-0.5">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0A2.25 2.25 0 109.75 10.5h4.5A2.25 2.25 0 0012 12.75zm0-7.5h.008v.008H12V5.25z"/></svg>
+          </div>
+          <div>
+            <span class="font-bold text-corp-gold uppercase tracking-wider block text-[10px]">Por que esta decisão importa para o C-Level?</span>
+            <p class="text-slate-400 mt-0.5 leading-relaxed">${q.contextReason}</p>
+          </div>
+        </div>
+
+        <!-- Options Container -->
+        <div class="grid grid-cols-1 ${q.options.length === 2 ? 'sm:grid-cols-2' : 'gap-3'} gap-3">
+          ${q.options.map(opt => `
+            <button onclick="selectOption(${stepNumber}, '${opt.key}', '${opt.leadsTo}')"
+                    class="group text-left p-4 sm:p-5 rounded-xl border border-slate-800 bg-slate-900/80 hover:bg-corp-850 hover:border-corp-cyan/70 transition-all duration-200 flex flex-col justify-between shadow-md hover:shadow-corp-cyan/5">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded font-display ${getBadgeStyle(opt.badgeType)}">
+                    ${opt.badge}
+                  </span>
+                  <svg class="w-4 h-4 text-slate-600 group-hover:text-corp-cyan transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5"/>
                   </svg>
                 </div>
-              </button>
-            `).join('')}
-          </div>
-        `;
-      }
-
-      container.innerHTML = `
-        <div class="space-y-3">
-          <div class="flex items-center gap-2 text-xs font-semibold text-brand-gold uppercase tracking-widest font-display">
-            <span>${q.code}</span>
-            <span>&bull;</span>
-            <span>${q.title}</span>
-          </div>
-          <h2 class="text-xl sm:text-2xl font-bold text-white font-display tracking-tight leading-snug">
-            ${q.question}
-          </h2>
-          <p class="text-sm text-slate-400 font-light leading-relaxed max-w-2xl">
-            ${q.subtext}
-          </p>
-        </div>
-        ${optionsHtml}
-        ${step > 1 ? `
-          <div class="mt-8 pt-4 border-t border-slate-800/80 flex justify-between items-center text-xs text-slate-500">
-            <button onclick="goBack()" class="flex items-center gap-1.5 hover:text-slate-300 transition-colors">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-              Retornar à pergunta anterior
+                <h3 class="text-sm font-semibold text-slate-100 group-hover:text-white mb-1.5 leading-snug">${opt.title}</h3>
+                <p class="text-xs text-slate-400 leading-relaxed font-light">${opt.desc}</p>
+              </div>
             </button>
-            <span>Decisão auditável</span>
-          </div>
-        ` : ''}
+          `).join('')}
+        </div>
       `;
     }
 
-    // Workflow Logic Handler
-    function handleAnswer(step, value) {
-      if (step === 1) {
-        state.answers.q1 = value;
-        if (value === "NAO") {
-          state.earlyExit = "q1_exit";
-          renderResults();
-          return;
-        }
-        state.currentStep = 2;
-        renderQuestion(2);
-      } else if (step === 2) {
-        state.answers.q2 = value;
-        if (value === "SIM") {
-          state.earlyExit = "q2_exit";
-          renderResults();
-          return;
-        }
-        state.currentStep = 3;
-        renderQuestion(3);
-      } else if (step === 3) {
-        state.answers.q3 = value;
-        state.currentStep = 4;
-        renderQuestion(4);
-      } else if (step === 4) {
-        state.answers.q4 = value;
-        state.earlyExit = null;
-        renderResults();
+    function getBadgeStyle(type) {
+      if (type === 'warn') return 'bg-rose-950/80 text-rose-300 border border-rose-800/60';
+      if (type === 'success') return 'bg-emerald-950/80 text-emerald-300 border border-emerald-800/60';
+      if (type === 'gold') return 'bg-amber-950/80 text-corp-gold border border-amber-800/60';
+      return 'bg-slate-800 text-slate-300 border border-slate-700';
+    }
+
+    // State Transitions
+    function selectOption(stepNumber, key, leadsTo) {
+      appState.answers[stepNumber] = key;
+
+      // Clear subsequent answers if editing earlier node
+      for (let s = stepNumber + 1; s <= 4; s++) {
+        appState.answers[s] = null;
+      }
+
+      if (leadsTo === 'exit_1') {
+        appState.verdictType = 'q1_exit';
+        renderDiagnostics();
+      } else if (leadsTo === 'exit_2') {
+        appState.verdictType = 'q2_exit';
+        renderDiagnostics();
+      } else if (leadsTo === 'result') {
+        appState.verdictType = 'completed';
+        renderDiagnostics();
+      } else {
+        renderQuestion(parseInt(leadsTo));
       }
     }
 
-    function goBack() {
-      if (state.currentStep > 1) {
-        state.currentStep--;
-        renderQuestion(state.currentStep);
+    function previousStep() {
+      if (appState.step > 1) {
+        renderQuestion(appState.step - 1);
       }
     }
 
-    function resetDiagnostic() {
-      state.currentStep = 1;
-      state.answers = { q1: null, q2: null, q3: null, q4: null };
-      state.earlyExit = null;
+    function jumpToStep(targetStep) {
+      renderQuestion(targetStep);
+    }
+
+    function resetFlow() {
+      appState.step = 1;
+      appState.answers = { 1: null, 2: null, 3: null, 4: null };
+      appState.verdictType = null;
       renderQuestion(1);
     }
 
-    // Build Results View
-    function renderResults() {
-      const progressSection = document.getElementById("progressSection");
-      const diagnosticCard = document.getElementById("diagnosticCard");
-      const resultContainer = document.getElementById("resultContainer");
+    // Generate Final Diagnostics
+    function renderDiagnostics() {
+      const card = document.getElementById('questionCard');
+      const resultCard = document.getElementById('resultCard');
 
-      progressSection.classList.add("hidden");
-      diagnosticCard.classList.add("hidden");
-      resultContainer.classList.remove("hidden");
+      card.classList.add('hidden');
+      resultCard.classList.remove('hidden');
 
-      let reportData = {};
+      renderDecisionTree();
 
-      if (state.earlyExit === "q1_exit") {
-        reportData = {
-          badge: "Filtro 0 • Pré-Requisito de Maturidade",
+      let data = {};
+
+      if (appState.verdictType === 'q1_exit') {
+        data = {
+          badge: "Filtro Preliminar: Maturidade Inexistente",
           badgeColor: "bg-rose-950/80 text-rose-300 border-rose-800",
           title: "Rota de Otimização Sem Tecnologia",
-          techVerdict: "Sem Automação Imediata (Intervenção Gerencial)",
           recommendation: "Não automatize a ineficiência. Realize o redesenho e a simplificação do fluxo antes de contratar qualquer ferramenta.",
-          executiveSummary: "O processo selecionado carece de estabilidade, clareza e regras mínimas de negócio. Automatizar um processo caótico apenas amplifica a frequência de inconformidades operacionais, gerando custos desnecessários com licenças de software e retrabalho de equipes técnicas.",
-          techPillar: {
-            stepName: "Degrau 0 da Escada Tecnológica",
-            details: "Padronização de Processos (BPM / Lean / Redesenho Operacional)",
-            highlight: "Elimine etapas redundantes, unifique critérios de decisão e teste a aderência do fluxo de ponta a ponta com a equipe antes de qualquer aporte tecnológico."
+          verdictStep: "Degrau 0: Redesenho de Processos (Lean / BPM)",
+          archetype: "Gestão Interna de Processos (BPMO / Liderança de Negócios)",
+          summary: "O processo selecionado carece de clareza e padronização. Implementar robôs de RPA ou Inteligência Artificial neste estágio acelera a taxa de falhas e aumenta despesas de manutenção técnica.",
+          finance: "CAPEX Zero | Custo restrito a horas-homem internas para modelagem e redução de atritos.",
+          risk: "Risco Crítico de Automatizar Desperdício: Automatizar um processo ruim gera apenas um processo ruim que falha mais rápido.",
+          nextSteps: [
+            "Conduzir oficina de mapeamento do fluxo atual (As-Is) com operadores da ponta.",
+            "Eliminar etapas redundantes, aprovações duplicadas e regras informais.",
+            "Validar o novo fluxo simplificado (To-Be) manualmente por um ciclo completo.",
+            "Retornar a este simulador após a homologação das novas regras."
+          ],
+          diagram: {
+            input: "Processo Caótico (Gargalo & Desvios)",
+            layer1: "Diagnóstico Humano & Análise Lean",
+            layer2: "Redesenho & Padronização (As-Is → To-Be)",
+            governance: "Comitê de Processos & Liderança Local",
+            output: "Fluxo Estável & Elegível à Automação",
+            accent: "#F43F5E"
           },
-          governancePillar: {
-            archetype: "Gestão Interna de Processos (BPMO / Liderança de Operações)",
-            capexOpex: "CAPEX Zero | Custo focado em horas internas de alinhamento e desenho de processos.",
-            speed: "Execução recomendada: 2 a 4 semanas para homologação do fluxo padronizado."
-          },
-          actionPlan: [
-            "Conduzir reuniões de mapeamento do fluxo atual (As-Is) com os analistas envolvidos na operação.",
-            "Eliminar pontos de duplicidade, documentar exceções e delimitar claramente as alçadas de decisão.",
-            "Criar a versão padronizada do fluxo (To-Be) e operar manualmente por pelo menos 1 ciclo estável.",
-            "Submeter novamente o processo a este diagnóstico assim que o fluxo estiver consolidado."
+          phases: [
+            { title: "Fase 1: Mapeamento & Expurgos", desc: "Mapear o fluxo As-Is e eliminar redundâncias de aprovação e retrabalho." },
+            { title: "Fase 2: Homologação do To-Be", desc: "Redesenhar o processo e validar a execução manual padronizada por 30 dias." },
+            { title: "Fase 3: Preparação para Automação", desc: "Documentar regras estáveis e submeter ao teste de automação (RPA/IA)." }
           ]
         };
-      } else if (state.earlyExit === "q2_exit") {
-        reportData = {
-          badge: "Filtro 1 • Parcimônia Sistêmica",
-          badgeColor: "bg-amber-950/80 text-amber-300 border-amber-800",
+      } else if (appState.verdictType === 'q2_exit') {
+        data = {
+          badge: "Filtro de Escopo: Fronteira Sistêmica Monolítica",
+          badgeColor: "bg-amber-950/80 text-corp-gold border-amber-800",
           title: "Parametrização Nativa (Sem IA e Sem RPA)",
-          techVerdict: "Configuração Determinística Interna do Sistema Atual",
           recommendation: "Configure as regras de negócio no próprio sistema atual. Evite custos com ferramentas adicionais.",
-          executiveSummary: "Como o fluxo transcorre dentro do perímetro de um único sistema e requer apenas cálculos exatos ou validações determinísticas de dados, a intervenção correta consiste em utilizar os recursos nativos já contratados no seu software (ex: triggers, fórmulas, workflows internos do ERP/CRM).",
-          techPillar: {
-            stepName: "Degrau 0 da Escada Tecnológica",
-            details: "Regras Nativas de TI e Configuração de Parâmetros de Banco/ERP",
-            highlight: "Evita o fenômeno de 'over-engineering'. A aquisição de robôs de RPA ou modelos de IA para este caso configuraria desperdício de capital."
+          verdictStep: "Degrau 0: Configuração de Regras Nativas do ERP / CRM",
+          archetype: "Governança Centralizada de TI / Parametrização Interna",
+          summary: "Por se tratar de um fluxo confinado em um único sistema sob regras matemáticas fixas, a criação de robôs de RPA ou modelos de IA constitui 'over-engineering'.",
+          finance: "CAPEX Zero | Custo absorvido pelo contrato de suporte já existente do seu software de gestão.",
+          risk: "Risco de Proliferação de Ferramentas: Aquisição desnecessária de licenças adicionais gerando custos recorrentes dispensáveis.",
+          nextSteps: [
+            "Abrir solicitação interna de parametrização no módulo nativo do sistema.",
+            "Configurar triggers, fórmulas e limites numéricos de alçada diretamente na base.",
+            "Auditar os logs de conformidade gerados pelo próprio software.",
+            "Evitar contratação de ferramentas extras de terceiros para esta demanda."
+          ],
+          diagram: {
+            input: "Dados Nativos do ERP / CRM",
+            layer1: "Módulo Nativo de Regras de Negócio",
+            layer2: "Triggers & Alçadas Numéricas Fixas",
+            governance: "Administrador do Sistema (TI Interna)",
+            output: "Execução Imediata sem Ferramentas Extras",
+            accent: "#E5B869"
           },
-          governancePillar: {
-            archetype: "Manutenção e Parametrização com a TI Central",
-            capexOpex: "CAPEX Zero | Sem custos adicionais de subscrição; absorvido pelo contrato vigente do software.",
-            speed: "Implementação imediata via chamados de parametrização ou consultoria técnica do próprio ERP."
-          },
-          actionPlan: [
-            "Acionar o responsável técnico ou administrador do sistema corporativo (ERP/CRM).",
-            "Especificar as validações matemáticas ou limites de alçada a serem parametrizados de forma nativa.",
-            "Ativar os logs de auditoria nativos para monitorar eventuais exceções transacionais.",
-            "Evitar contratação de licenças extras de RPA ou serviços terceirizados de inteligência artificial."
+          phases: [
+            { title: "Fase 1: Levantamento de Parâmetros", desc: "Definir alçadas matemáticas e regras de bloqueio diretamente no ERP/CRM." },
+            { title: "Fase 2: Parametrização em Sandbox", desc: "Aplicar regras no ambiente de teste e validar logs de auditoria nativos." },
+            { title: "Fase 3: Go-Live & Monitoramento", desc: "Ativar em produção com zero custo adicional de licenças externas." }
           ]
         };
       } else {
-        // Advanced Steps (Q3 + Q4)
-        let techInfo = {};
-        if (state.answers.q3 === "A") {
-          techInfo = {
-            degrau: "Degrau 1 • Automação Transacional (RPA)",
-            techName: "Robotic Process Automation (Mãos Digitais)",
-            tag: "Execução Determinística Semântica Zero",
-            details: "Robôs de software programados para mimetizar tarefas humanas repetitivas entre interfaces legadas (copiar, colar, preencher formulários e conciliar bases tabulares estruturadas)."
+        // Full Path (Q3 + Q4)
+        const q3 = appState.answers[3];
+        const q4 = appState.answers[4];
+
+        let techDetails = {};
+        if (q3 === 'A') {
+          techDetails = {
+            step: "Degrau 1 • Automação Transacional (RPA)",
+            tech: "Robotic Process Automation (Mãos Digitais)",
+            nature: "Execução determinística e repetitiva de transferência e conciliação de dados entre plataformas heterogêneas.",
+            layer1: "Robôs de RPA (Mãos Digitais)",
+            layer2: "Conectores de Sistemas Legados & APIs",
+            color: "#38BDF8"
           };
-        } else if (state.answers.q3 === "B") {
-          techInfo = {
-            degrau: "Degraus 2 a 6 • Inteligência Artificial Cognitiva",
-            techName: "Modelos Cognitivos e Semânticos (Cérebro Digital)",
-            tag: "Interpretação e Inferência Probabilística",
-            details: "Uso de Modelos de Linguagem (LLMs/SLMs), RAG (Retrieval-Augmented Generation) ou Machine Learning preditivo para interpretar textos livres, sintetizar pareceres e gerar insights estratégicos sob regras dinâmicas."
+        } else if (q3 === 'B') {
+          techDetails = {
+            step: "Degraus 2 a 6 • Inteligência Artificial Cognitiva",
+            tech: "Modelos Cognitivos & Semânticos (Cérebro Digital)",
+            nature: "Processamento semântico, interpretação de textos não estruturados, síntese e apoio à deliberação executiva.",
+            layer1: "LLMs / SLMs Especializados (Cérebro Digital)",
+            layer2: "Base Proprietária (RAG & Recuperação Semântica)",
+            color: "#818CF8"
           };
         } else {
-          techInfo = {
-            degrau: "Degrau 7 • Automação Integrada / Multiagente",
-            techName: "Sistemas Multiagentes + RPA (Fazer + Pensar)",
-            tag: "Orquestração Cognitiva Autônoma",
-            details: "Arquitetura integrada de ponta a ponta: agentes cognitivos interpretam dados não estruturados de entrada e acionam robôs de RPA ou APIs estruturadas para efetivação das operações em sistemas legados."
+          techDetails = {
+            step: "Degrau 7 • Automação Integrada / Multiagente",
+            tech: "Sistemas Multiagentes + RPA (Mãos + Cérebro)",
+            nature: "Orquestração autônoma de ponta a ponta: agentes cognitivos compreendem a solicitação e acionam robôs para efetivar a transação.",
+            layer1: "Orquestração de Agentes Autônomos (Multiagentes)",
+            layer2: "Execução Híbrida: Raciocínio IA + RPA Tool Calling",
+            color: "#34D399"
           };
         }
 
-        let archetypeInfo = {};
-        if (state.answers.q4 === "A") {
-          archetypeInfo = {
+        let archDetails = {};
+        if (q4 === 'A') {
+          archDetails = {
             name: "A FORTALEZA",
-            subtitle: "Desenvolvimento Próprio com Tiny Teams e Soberania Total",
-            badge: "Soberania e Sigilo Estrito",
-            color: "border-sky-500/60 bg-sky-950/20",
-            capexOpexText: "CAPEX Inicial Moderado (Ambiente Seguro Privado/On-Premise) + OPEX Controlado focado em folha de especialistas técnicos e infraestrutura cloud própria.",
-            profile: "Indicado para processos core business, com segredo industrial ou regulação bancária restrita. Elimina margens pagas a intermediários e protege a propriedade intelectual.",
-            approach: "Desenvolvimento in-house pro-code alavancado por 'tiny teams' de engenharia de alta senioridade com agentes auxiliares de código e modelos open-weights."
+            sub: "Desenvolvimento Próprio com Tiny Teams e Soberania Total",
+            finance: "CAPEX Inicial Moderado (Ambiente Seguro Privado/On-Premise) + OPEX Controlado focado em folha de engenharia enxuta e modelos open-weights.",
+            governance: "Prioridade absoluta à soberania de dados, proteção de segredo industrial e blindagem contra vazamento de informações para nuvens públicas de terceiros.",
+            govTag: "Tiny Teams • Nuvem Privada / On-Premise • Zero Data Leakage"
           };
-        } else if (state.answers.q4 === "B") {
-          archetypeInfo = {
+        } else if (q4 === 'B') {
+          archDetails = {
             name: "O HÍBRIDO ÁGIL",
-            subtitle: "Plataformas Low-Code integradas a APIs de IA com Governança de TI",
-            badge: "Democratização com Governança",
-            color: "border-brand-gold/60 bg-amber-950/20",
-            capexOpexText: "Zero CAPEX | OPEX Misto composto por assinaturas das plataformas Low-Code + custo sob demanda de consumo de tokens em APIs corporativas.",
-            profile: "Ideal para áreas departamentais (RH, Operações, Controladoria, Suporte) que demandam agilidade sem depender de filas de espera da equipe de engenharia.",
-            approach: "Citizen developers capacitados constroem fluxos em linguagem natural e interfaces visuais, operando dentro de um 'sandboxing' estritamente supervisionado pela TI corporativa para evitar Shadow IT."
+            sub: "Plataformas Low-Code integradas a APIs de IA com Governança de TI",
+            finance: "Zero CAPEX | OPEX Misto composto por assinaturas corporativas da plataforma Low-Code + consumo elástico de tokens das APIs homologadas.",
+            governance: "Autonomia supervisionada para analistas de negócio (Citizen Developers) com sandboxing corporativo, contendo riscos de Shadow IT.",
+            govTag: "Low-Code + APIs Corporativas • Co-Sourcing • TI Guardrail"
           };
         } else {
-          archetypeInfo = {
+          archDetails = {
             name: "O VELOCISTA",
-            subtitle: "SaaS / AIaaS Terceirizado e Conversão 100% em OPEX",
-            badge: "Velocidade Máxima e Quick Wins",
-            color: "border-emerald-500/60 bg-emerald-950/20",
-            capexOpexText: "Zero CAPEX | 100% OPEX Variável por assinatura mensal ou fatura transacional (Pay-as-you-go).",
-            profile: "Recomendado para processos padronizados de mercado (commodities) ou para comprovação rápida de valor através de Provas de Conceito (PoCs) sem alocação de times internos.",
-            approach: "Contratação direta de plataformas já prontas de mercado como serviço (SaaS / RPAaaS). Requer monitoramento executivo sobre risco de acoplamento com fornecedores (vendor lock-in) na escala."
+            sub: "SaaS / AIaaS Terceirizado e Conversão 100% em OPEX",
+            finance: "Zero CAPEX | 100% OPEX Variável por assinatura ou fatura proporcional ao volume transacional (Pay-as-you-go).",
+            governance: "Foco em velocidade extrema e validação imediata (Quick Wins). Requer vigilância ativa contra dependência tecnológica estrita (vendor lock-in).",
+            govTag: "SaaS / AIaaS Turnkey • OPEX 100% • Monitoramento Lock-in"
           };
         }
 
-        reportData = {
+        data = {
           badge: "Diagnóstico Completo de Automação Inteligente",
-          badgeColor: "bg-brand-600/20 text-brand-accent border-brand-500/40",
-          title: "Parecer Executivo para Decisão Estratégica",
-          techVerdict: techInfo.degrau,
-          recommendation: `Adotar a arquitetura tecnológica ${techInfo.techName} sob o modelo de governança "${archetypeInfo.name}".`,
-          executiveSummary: `O gargalo operacional analisado requer a transição de um modelo de ocupação manual para uma estrutura de alta produtividade. A combinação entre a natureza das tarefas (${techInfo.tag}) e as diretrizes de risco corporativo indica o enquadramento na arquitetura ${archetypeInfo.name}.`,
-          techPillar: {
-            stepName: techInfo.degrau,
-            details: techInfo.techName,
-            highlight: techInfo.details
+          badgeColor: "bg-corp-cyan/20 text-corp-cyan border-corp-cyan/40",
+          title: "Parecer Executivo para Diretoria",
+          recommendation: `Adotar ${techDetails.tech} sob o modelo de governança "${archDetails.name}".`,
+          verdictStep: techDetails.step,
+          archetype: `${archDetails.name}: ${archDetails.sub}`,
+          summary: `O gargalo operacional requer modernização estruturada. A convergência entre a complexidade da tarefa (${techDetails.nature}) e os parâmetros de confidencialidade orienta o enquadramento na arquitetura ${archDetails.name}.`,
+          finance: archDetails.finance,
+          risk: archDetails.governance,
+          nextSteps: [
+            "Nomear o Sponsor Executivo da área de negócio e o Arquiteto de Solução responsável.",
+            "Estabelecer os critérios formais de auditoria e segurança compatíveis com o modelo " + archDetails.name + ".",
+            "Desenvolver uma Prova de Conceito (PoC) delimitada com janela de homologação em até 4 semanas.",
+            "Definir os KPIs de retorno: tempo economizado em horas de especialistas e acurácia transacional."
+          ],
+          diagram: {
+            input: "Entradas Heterogêneas (Legados / Documentos / Faturas)",
+            layer1: techDetails.layer1,
+            layer2: techDetails.layer2,
+            governance: archDetails.govTag,
+            output: "Eficiência Operacional & Retorno sobre o Capital (EBIT)",
+            accent: techDetails.color
           },
-          governancePillar: {
-            archetype: `${archetypeInfo.name}: ${archetypeInfo.subtitle}`,
-            capexOpex: archetypeInfo.capexOpexText,
-            speed: archetypeInfo.approach
-          },
-          actionPlan: [
-            `Designar o Sponsor Executivo da área de negócio e o arquiteto técnico de referência.`,
-            `Validar os requisitos de conformidade de dados e auditoria compatíveis com o modelo ${archetypeInfo.name}.`,
-            `Iniciar o desenvolvimento de um piloto controlado (janela de 3 a 6 semanas) com métricas de ROI (horas economizadas e redução de taxa de erro).`,
-            `Estruturar os KPIs de pós-implementação com acompanhamento semanal pelo Comitê de Eficiência Operacional.`
+          phases: [
+            { title: "Fase 1: PoC & Guardrails (Semana 1-4)", desc: "Construir Prova de Conceito isolada e pactuar limites de segurança e alçadas." },
+            { title: "Fase 2: Implantação Assistida (Semana 5-8)", desc: "Implementar solução em paralelo à equipe ('Human-in-the-loop') com auditoria." },
+            { title: "Fase 3: Operação Escalar & KPIs (Semana 9+)", desc: "Produção contínua medindo horas liberadas, acurácia e redução de custo operacional." }
           ]
         };
       }
 
-      // Populate dashboard HTML
-      resultContainer.innerHTML = `
-        <!-- Executive Header Card -->
-        <div class="bg-gradient-to-br from-brand-900 via-brand-850 to-slate-900 border border-slate-700/80 rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden print-shadow">
+      resultCard.innerHTML = `
+        <!-- Main Verdict Card -->
+        <div class="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-corp-900 via-corp-850 to-slate-900 border border-slate-700/80 shadow-2xl relative print-box">
           <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider ${reportData.badgeColor} border font-display">
-              <span class="w-2 h-2 rounded-full bg-current"></span>
-              ${reportData.badge}
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider ${data.badgeColor} border font-display">
+              ${data.badge}
             </span>
             <div class="flex items-center space-x-2 no-print">
-              <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition-colors">
-                <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
-                Imprimir Resumo Executivo
+              <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold flex items-center gap-1.5 transition">
+                <svg class="w-4 h-4 text-corp-gold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24-1.03-.48-2.07-.72-3.11m0 0a3.75 3.75 0 013.72-3.719h4.5a3.75 3.75 0 013.72 3.719m-11.94 0h11.94m-11.94 0A3.75 3.75 0 003 14.56v3.19a3.75 3.75 0 003.75 3.75h10.5a3.75 3.75 0 003.75-3.75v-3.19a3.75 3.75 0 00-3.75-3.75"/></svg>
+                Imprimir Parecer
               </button>
-              <button onclick="resetDiagnostic()" class="px-3.5 py-1.5 rounded-lg bg-brand-700 hover:bg-brand-600 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                Novo Diagnóstico
+              <button onclick="resetFlow()" class="px-3.5 py-1.5 rounded-lg bg-corp-800 hover:bg-corp-700 text-white text-xs font-semibold flex items-center gap-1.5 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"/></svg>
+                Novo Processo
               </button>
             </div>
           </div>
 
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-display tracking-tight mb-2">
-            ${reportData.title}
-          </h2>
-          <div class="p-4 rounded-xl bg-slate-950/60 border border-brand-gold/30 my-4">
-            <span class="text-xs uppercase tracking-wider text-brand-gold font-bold block mb-1">Recomendação Diretiva:</span>
-            <p class="text-base sm:text-lg font-medium text-slate-100">${reportData.recommendation}</p>
-          </div>
-          <p class="text-sm text-slate-300 leading-relaxed max-w-3xl">
-            ${reportData.executiveSummary}
-          </p>
-        </div>
-
-        <!-- Analytical Decision Pillars -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <h2 class="text-xl sm:text-2xl font-extrabold text-white font-display mb-3 print-text-dark">${data.title}</h2>
           
-          <!-- Pillar 1: Tech Architecture -->
-          <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between shadow-xl">
-            <div>
-              <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
-                <span class="text-xs font-bold uppercase tracking-wider text-brand-accent font-display">Pilar Tecnológico</span>
-                <span class="text-xs text-slate-400 font-mono">Decisão Algorítmica</span>
-              </div>
-              <h3 class="text-lg font-bold text-white mb-2 font-display">${reportData.techPillar.details}</h3>
-              <div class="inline-block px-2.5 py-1 rounded bg-brand-900/80 border border-brand-700/50 text-xs font-medium text-brand-gold mb-3">
-                ${reportData.techPillar.stepName}
-              </div>
-              <p class="text-sm text-slate-300 leading-relaxed">
-                ${reportData.techPillar.highlight}
-              </p>
+          <div class="p-4 rounded-xl bg-slate-950/70 border border-corp-gold/30 mb-4 print-box">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-corp-gold block mb-1">Recomendação Estratégica:</span>
+            <p class="text-base sm:text-lg font-semibold text-slate-100 print-text-dark">${data.recommendation}</p>
+          </div>
+
+          <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-light print-subtext">${data.summary}</p>
+        </div>
+
+        <!-- NEW: Dynamic Architectural Blueprint Infographic (SVG / Executive Visual Flow) -->
+        <div class="p-6 rounded-2xl bg-corp-900/70 border border-slate-800 backdrop-blur-md shadow-xl print-box">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full" style="background-color: ${data.diagram.accent};"></span>
+              <h3 class="text-xs font-bold uppercase tracking-widest text-slate-200 font-display">Diagrama de Arquitetura de Valor (Visão Ponta a Ponta)</h3>
             </div>
-            <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-              <span>Princípio da Parcimônia</span>
-              <span class="text-brand-accent font-medium">Solução de menor custo viável</span>
+            <span class="text-[10px] font-mono text-slate-400 bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700">Blueprint Executivo</span>
+          </div>
+
+          <!-- Flowchart Graphic Container -->
+          <div class="p-4 sm:p-6 rounded-xl bg-slate-950/90 border border-slate-800/80 relative overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 relative z-10 items-stretch">
+              
+              <!-- Block 1: Insumo -->
+              <div class="p-3.5 rounded-xl border border-slate-800 bg-slate-900/90 flex flex-col justify-between">
+                <div>
+                  <span class="text-[9px] uppercase font-bold tracking-wider text-slate-400 block mb-1">01. Insumo / Entrada</span>
+                  <div class="text-xs font-bold text-slate-200">${data.diagram.input}</div>
+                </div>
+                <div class="mt-3 text-[10px] text-slate-500 font-mono">Dados Estruturados / Livres</div>
+              </div>
+
+              <!-- Block 2: Processamento Cognitivo / RPA -->
+              <div class="p-3.5 rounded-xl border flex flex-col justify-between shadow-lg" style="border-color: ${data.diagram.accent}40; background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8));">
+                <div>
+                  <span class="text-[9px] uppercase font-bold tracking-wider block mb-1" style="color: ${data.diagram.accent}">02. Núcleo Tecnológico</span>
+                  <div class="text-xs font-bold text-white mb-1">${data.diagram.layer1}</div>
+                  <div class="text-[10px] text-slate-300 font-light leading-snug">${data.diagram.layer2}</div>
+                </div>
+                <div class="mt-3 flex items-center gap-1.5 text-[10px] font-semibold" style="color: ${data.diagram.accent}">
+                  <span class="w-1.5 h-1.5 rounded-full animate-ping" style="background-color: ${data.diagram.accent}"></span>
+                  Camada de Execução
+                </div>
+              </div>
+
+              <!-- Block 3: Governança & Arquétipo -->
+              <div class="p-3.5 rounded-xl border border-slate-800 bg-slate-900/90 flex flex-col justify-between">
+                <div>
+                  <span class="text-[9px] uppercase font-bold tracking-wider text-corp-gold block mb-1">03. Governança & Segurança</span>
+                  <div class="text-xs font-bold text-slate-200 mb-1">${data.diagram.governance}</div>
+                </div>
+                <div class="mt-3 text-[10px] text-slate-400 font-mono">Guardrails de TI & Dados</div>
+              </div>
+
+              <!-- Block 4: Entrega de Valor -->
+              <div class="p-3.5 rounded-xl border border-emerald-800/50 bg-emerald-950/20 flex flex-col justify-between">
+                <div>
+                  <span class="text-[9px] uppercase font-bold tracking-wider text-emerald-400 block mb-1">04. Resultado de Negócio</span>
+                  <div class="text-xs font-bold text-emerald-200">${data.diagram.output}</div>
+                </div>
+                <div class="mt-3 text-[10px] text-emerald-400/80 font-mono">Valor Auditado & KPIs</div>
+              </div>
+
+            </div>
+
+            <!-- Interconnection Flow Lines (SVG connector behind cards on md screens) -->
+            <div class="hidden md:block mt-4 pt-3 border-t border-slate-800/80 text-center">
+              <svg class="w-full h-8" viewBox="0 0 800 30" fill="none">
+                <path d="M 100 15 L 700 15" stroke="#334155" stroke-width="2" />
+                <path class="flow-line-active" d="M 100 15 L 700 15" stroke="${data.diagram.accent}" stroke-width="2" />
+                <circle cx="100" cy="15" r="4" fill="#38BDF8" />
+                <circle cx="300" cy="15" r="4" fill="${data.diagram.accent}" />
+                <circle cx="500" cy="15" r="4" fill="#E5B869" />
+                <circle cx="700" cy="15" r="4" fill="#10B981" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analytical Matrix Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          
+          <!-- Pillar: Technology -->
+          <div class="p-5 rounded-2xl bg-corp-900/60 border border-slate-800 flex flex-col justify-between print-box">
+            <div>
+              <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-corp-cyan font-display">Pilar Tecnológico</span>
+                <span class="text-[10px] text-slate-400 font-mono">Escada de Decisão</span>
+              </div>
+              <div class="text-xs text-corp-gold font-medium mb-1">${data.verdictStep}</div>
+              <p class="text-xs text-slate-300 leading-relaxed print-subtext">Fundamentado no critério de suficiência: adotar a menor sofisticação de código capaz de resolver o gargalo de ponta a ponta.</p>
             </div>
           </div>
 
-          <!-- Pillar 2: Governance & Financial Model -->
-          <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between shadow-xl">
+          <!-- Pillar: Governance & Finance -->
+          <div class="p-5 rounded-2xl bg-corp-900/60 border border-slate-800 flex flex-col justify-between print-box">
             <div>
-              <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-800">
-                <span class="text-xs font-bold uppercase tracking-wider text-brand-gold font-display">Pilar de Governança & Finanças</span>
-                <span class="text-xs text-slate-400 font-mono">CAPEX vs OPEX</span>
+              <div class="flex items-center justify-between pb-2 mb-3 border-b border-slate-800">
+                <span class="text-[10px] font-bold uppercase tracking-wider text-corp-gold font-display">Governança & Finanças</span>
+                <span class="text-[10px] text-slate-400 font-mono">CAPEX vs OPEX</span>
               </div>
-              <h3 class="text-lg font-bold text-white mb-2 font-display">${reportData.governancePillar.archetype}</h3>
-              <div class="p-3 rounded-lg bg-slate-950/80 border border-slate-800 text-xs text-slate-300 mb-3 space-y-1">
-                <span class="font-bold text-brand-gold block uppercase tracking-wider">Estrutura de Custos:</span>
-                <p>${reportData.governancePillar.capexOpex}</p>
-              </div>
-              <p class="text-sm text-slate-300 leading-relaxed">
-                ${reportData.governancePillar.speed}
-              </p>
-            </div>
-            <div class="mt-6 pt-4 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
-              <span>Soberania de Dados</span>
-              <span class="text-brand-gold font-medium">Mitigação de Riscos de TI</span>
+              <div class="text-xs font-semibold text-white mb-1 print-text-dark">${data.archetype}</div>
+              <p class="text-xs text-slate-300 leading-relaxed print-subtext">${data.finance}</p>
             </div>
           </div>
 
         </div>
 
-        <!-- Action Plan -->
-        <div class="bg-brand-900/40 border border-slate-800/90 rounded-2xl p-6 sm:p-8 shadow-xl">
-          <div class="flex items-center justify-between mb-4 pb-2 border-b border-slate-800">
-            <h3 class="text-base font-bold text-white uppercase tracking-wider font-display flex items-center gap-2">
-              <span class="w-2.5 h-2.5 rounded-sm bg-brand-gold"></span>
-              Plano de Ação Imediato para a Diretoria (Próximos Passos)
+        <!-- NEW: 3-Phase Executive Execution Roadmap -->
+        <div class="p-6 rounded-2xl bg-corp-900/50 border border-slate-800 shadow-xl print-box">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-slate-200 font-display flex items-center gap-2">
+              <span class="w-2 h-2 rounded bg-corp-gold"></span>
+              Plano de Implementação em 3 Fases (Roadmap Executivo)
             </h3>
-            <span class="text-xs text-slate-500 font-mono">Time-to-Value</span>
+            <span class="text-[10px] text-slate-400 font-mono">Governança Pós-Decisão</span>
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-            ${reportData.actionPlan.map((action, i) => `
-              <div class="flex items-start space-x-3 p-3.5 rounded-xl bg-slate-900/60 border border-slate-800">
-                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-brand-700/60 text-brand-gold border border-brand-gold/30 flex items-center justify-center text-xs font-bold font-mono">
-                  ${i + 1}
-                </span>
-                <p class="text-xs sm:text-sm text-slate-300 leading-snug">${action}</p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3.5">
+            ${data.phases.map((ph, idx) => `
+              <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between print-box">
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="w-6 h-6 rounded-full bg-corp-800 text-corp-gold flex items-center justify-center font-bold text-xs">${idx + 1}</span>
+                    <span class="text-[9px] font-mono text-slate-400 uppercase tracking-widest">Fase 0${idx + 1}</span>
+                  </div>
+                  <h4 class="text-xs font-bold text-white mb-1.5">${ph.title}</h4>
+                  <p class="text-xs text-slate-400 font-light leading-relaxed">${ph.desc}</p>
+                </div>
               </div>
             `).join('')}
           </div>
         </div>
 
-        <!-- Strategic Benchmarks Note -->
-        <div class="p-5 rounded-xl border border-slate-800 bg-slate-900/40 text-xs text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="flex items-center gap-3">
-            <svg class="w-6 h-6 text-brand-gold flex-shrink-0" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            <p>De acordo com os dados do BCG (2025), o estrato líder de 5% das empresas obtém crescimento de receita 1,7x maior ao redesenhar seus fluxos antes de investir em IA.</p>
+        <!-- Action Plan Checklist -->
+        <div class="p-6 rounded-2xl bg-corp-900/40 border border-slate-800 print-box">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-slate-200 font-display mb-3 flex items-center gap-2">
+            <span class="w-2 h-2 rounded bg-emerald-500"></span>
+            Checklist de Próximos Passos Imediatos
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            ${data.nextSteps.map((step, idx) => `
+              <div class="p-3 rounded-xl bg-slate-900/70 border border-slate-800/80 text-xs text-slate-300 flex items-start gap-2.5 print-box">
+                <span class="w-5 h-5 rounded-full bg-corp-800 text-corp-gold flex items-center justify-center font-bold text-[10px] flex-shrink-0">${idx + 1}</span>
+                <span class="leading-relaxed print-text-dark">${step}</span>
+              </div>
+            `).join('')}
           </div>
-          <button onclick="resetDiagnostic()" class="text-brand-accent hover:underline flex-shrink-0 font-medium">Refazer com outro processo &rarr;</button>
         </div>
       `;
     }
 
-    // Initialize application on load
-    window.addEventListener("DOMContentLoaded", () => {
+    // Initialize
+    window.addEventListener('DOMContentLoaded', () => {
       renderQuestion(1);
     });
   </script>
